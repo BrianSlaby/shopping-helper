@@ -4,7 +4,76 @@
   box-sizing: border-box;
 }
 
-html {
-  margin: 0;
+:root {
+  --primary-clr: #daeaf6;
+  --secondary-clr: #8cc4ef;
+  --secondary-clr-drk: #6394ba;
+  --accent-clr: #e8dff5;
+  --accent-clr-drk: #c7b7dd;
+  --text-clr: #05080b;
+  --bg-clr: #f2f7fa;
+  --lt-neutral-clr: #f7f7f7;
+  --md-neutral-clr: #cacaca;
 }
 
+html {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  background-color: var(--bg-clr);
+  color: var(--text-clr);
+}
+
+header {
+  text-align: center;
+}
+
+.text-input {
+  padding: 0.75em;
+  border-radius: 8px;
+  background-color: var(--bg-neutral-clr);
+  border: 2px solid var(--md-neutral-clr);
+}
+
+/* ===============================
+           BUTTON STYLES 
+   =============================== */
+
+   .btn {
+    border-radius: 8px;
+    border: none;
+    padding: 1em;
+    cursor: pointer;
+    color: var(--text-clr);
+    text-transform: uppercase;
+    box-shadow: 1px 1px 2px var(--md-neutral-clr);
+   }
+
+   .primary-btn {
+    background-color: var(--secondary-clr);
+   }
+
+   .primary-btn:hover,
+   .primary-btn:focus {
+    background-color: var(--secondary-clr-drk);
+   }
+
+   .secondary-btn {
+    background-color: var(--accent-clr);
+   }
+
+   .secondary-btn:hover,
+   .secondary-btn:focus {
+    background-color: var(--accent-clr-drk);
+   }
+
+/* ===============================
+       AUTH REQUIRED COMPONENT 
+   =============================== */
+
+   .login-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    gap: 1em;
+    margin: 1em auto;
+   }
