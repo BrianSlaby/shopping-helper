@@ -6,7 +6,7 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    onAuthStateChanged
+    signOut
 } from "firebase/auth";
 
 
@@ -49,23 +49,19 @@ function authSignInWithEmail(email, password) {
     });
 }
 
-// SHOULD THIS BE IN APP.JSX?
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-      const uid = user.uid;
-      // DISPLAY LOGGED IN VIEW
-      // FETCH SAVED LISTS
-    } else {
-      // User is signed out
-      // DISPLAY LOGGED OUT VIEW
-    }
-  });
-
-
+function authSignOut() {
+    signOut(auth).then(() => {
+        // Sign-out successful.
+      }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error(`${errorCode}: ${errorMessage}`)
+      });
+}
 
 export { 
+    auth,
     authCreateAccountWithEmail,
-    authSignInWithEmail
+    authSignInWithEmail,
+    authSignOut
  }
