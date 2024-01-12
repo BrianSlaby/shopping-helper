@@ -4,7 +4,8 @@ import {
  } from "firebase/firestore";
  import { 
     getAuth,
-    createUserWithEmailAndPassword 
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword 
 } from "firebase/auth";
 
 
@@ -22,16 +23,10 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-
-
-function authCreateAccountWithEmail() {
-    const email = document.getElementById("email-input").value 
-    const password = document.getElementById("password-input").value
-
+function authCreateAccountWithEmail(email, password) {
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-        const user = userCredential.user;
-        // utility functions to clear fields
+        const user = userCredential.user;   
         // do we need the user variable?
     })
     .catch((error) => {
@@ -39,6 +34,22 @@ function authCreateAccountWithEmail() {
         const errorMessage = error.message;
         console.error(`${errorCode}: ${errorMessage}`)
     });
-
 }
 
+function authSignInWithEmail(email, password) {
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        const user = userCredential.user;
+        // do we need the user variable?
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error(`${errorCode}: ${errorMessage}`)
+    });
+}
+
+export { 
+    authCreateAccountWithEmail,
+    authSignInWithEmail
+ }
