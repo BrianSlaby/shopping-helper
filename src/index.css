@@ -23,7 +23,8 @@ html {
   color: var(--text-clr);
 }
 
-header {
+header,
+h2 {
   text-align: center;
 }
 
@@ -38,42 +39,59 @@ header {
            BUTTON STYLES 
    =============================== */
 
-   .btn {
-    border-radius: 8px;
-    border: none;
-    padding: 1em;
-    cursor: pointer;
-    color: var(--text-clr);
-    text-transform: uppercase;
-    box-shadow: 1px 1px 2px var(--md-neutral-clr);
-   }
+.btn {
+  border-radius: 8px;
+  border: none;
+  padding: 1em;
+  cursor: pointer;
+  color: var(--text-clr);
+  text-transform: uppercase;
+  box-shadow: 1px 1px 2px var(--md-neutral-clr);
+}
 
-   .primary-btn {
-    background-color: var(--secondary-clr);
-   }
+.primary-btn {
+  background-color: var(--secondary-clr);
+}
 
-   .primary-btn:hover,
-   .primary-btn:focus {
-    background-color: var(--secondary-clr-drk);
-   }
+.primary-btn:hover,
+.primary-btn:focus {
+  background-color: var(--secondary-clr-drk);
+}
 
-   .secondary-btn {
-    background-color: var(--accent-clr);
-   }
+.secondary-btn {
+  background-color: var(--accent-clr);
+}
 
-   .secondary-btn:hover,
-   .secondary-btn:focus {
-    background-color: var(--accent-clr-drk);
-   }
+.secondary-btn:hover,
+.secondary-btn:focus {
+  background-color: var(--accent-clr-drk);
+}
 
 /* ===============================
-       AUTH REQUIRED COMPONENT 
+         AUTH REQUIRED PAGE 
    =============================== */
 
-   .login-container {
-    display: flex;
-    flex-direction: column;
-    max-width: 300px;
-    gap: 1em;
-    margin: 1em auto;
-   }
+.login-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  gap: 1em;
+  margin: 1em auto;
+}
+
+   /* ===============================
+               HOME PAGE 
+   =============================== */
+
+.home-container {
+  max-width: 400px;
+  margin: 1em auto;
+}
+
+.home-nav-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 0.5em;
+  border: 1px solid red;
+}

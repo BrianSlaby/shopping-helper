@@ -1,6 +1,6 @@
 import React from 'react'
 import { onAuthStateChanged } from "firebase/auth";
-import { auth, authSignOut } from "./firebase"
+import { auth } from "./firebase/authentication"
 import AuthRequired from "./pages/AuthRequired"
 import Home from "./pages/Home"
 // component imports probably getting moved to Home
@@ -19,7 +19,6 @@ export default function App() {
       // FETCH SAVED LISTS
     } else {
       setUserLoggedIn(false)
-      // DISPLAY LOGGED OUT VIEW
     }
   });
 
@@ -31,10 +30,9 @@ export default function App() {
       </header>
 
       {userLoggedIn ? 
-        <div>
-          <h1>Login State Test</h1>
-          <button className="btn" onClick={authSignOut}>Sign Out</button>
-        </div> 
+        <Home>
+          
+        </Home>
       : <AuthRequired />}
 
     </>

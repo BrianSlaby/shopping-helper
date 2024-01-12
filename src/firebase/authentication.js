@@ -1,26 +1,12 @@
-import { initializeApp } from "firebase/app";
+import { app } from "./config"
+
 import { 
-    getFirestore
- } from "firebase/firestore";
- import { 
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut
 } from "firebase/auth";
 
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDZCL6mhmFGam-jht1Yh72klUYjCEDrBAg",
-  authDomain: "shopping-helper-99b9d.firebaseapp.com",
-  projectId: "shopping-helper-99b9d",
-  storageBucket: "shopping-helper-99b9d.appspot.com",
-  messagingSenderId: "233933837651",
-  appId: "1:233933837651:web:f4f1d85f3e3ce5f98bbda6"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 const auth = getAuth(app);
 
 function authCreateAccountWithEmail(email, password) {
@@ -59,9 +45,9 @@ function authSignOut() {
       });
 }
 
-export { 
+export {
     auth,
     authCreateAccountWithEmail,
     authSignInWithEmail,
     authSignOut
- }
+}

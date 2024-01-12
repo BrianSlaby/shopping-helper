@@ -3,7 +3,7 @@ import React from "react"
 import { 
     authCreateAccountWithEmail,
     authSignInWithEmail
-} from "../firebase";
+} from "../firebase/authentication";
 
 export default function AuthRequired() {
     const [email, setEmail] = React.useState("")
@@ -32,7 +32,10 @@ export default function AuthRequired() {
         clearInputFields()
     }
     
-
+    // Refactor form as a slider button (sign in vs create account)
+        // basically, I'd rather have this as a form element with submit buttons
+        // right now hitting enter after typing all fields does not submit
+            // if it worked that way, login and create account need to be separate forms.
     return (
         <>
             <div className="login-container">
