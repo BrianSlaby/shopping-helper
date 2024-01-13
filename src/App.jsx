@@ -1,6 +1,7 @@
 import React from 'react'
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/authentication"
+import { fetchLists } from "./firebase/firestore"
 import AuthRequired from "./pages/AuthRequired"
 import Home from "./pages/Home"
 // component imports probably getting moved to Home
@@ -9,14 +10,17 @@ import Item from "./components/Item"
 
 
 export default function App() {
-  const [userLoggedIn, setUserLoggedIn] = React.useState(false)
+  const [ userLoggedIn, setUserLoggedIn ] = React.useState(false)
+  const [ user, setUser ] = React.useState(null)
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const uid = user.uid;
-      console.log(user.email)
+      // user.email
+      // user.displayName
+      setUser(user)
       setUserLoggedIn(true)
-      // FETCH SAVED LISTS
+      fetchLists(user)
     } else {
       setUserLoggedIn(false)
     }
@@ -30,7 +34,7 @@ export default function App() {
       </header>
 
       {userLoggedIn ? 
-        <Home>
+        <Home user={user}>
           
         </Home>
       : <AuthRequired />}

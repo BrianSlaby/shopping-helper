@@ -42,7 +42,7 @@ h2 {
 .btn {
   border-radius: 8px;
   border: none;
-  padding: 1em;
+  padding: 1em 1.5em;
   cursor: pointer;
   color: var(--text-clr);
   text-transform: uppercase;
@@ -93,5 +93,13 @@ h2 {
   flex-wrap: wrap;
   justify-content: space-around;
   gap: 0.5em;
-  border: 1px solid red;
+}
+
+.create-list-container {
+  display: flex;
+  gap: 0.5em;
+}
+
+.create-list-container > input {
+  flex-grow: 1;
 }
