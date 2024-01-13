@@ -47,6 +47,19 @@ export default function Home({ children, user, lists }) {
                     >Create List</button>
                 </div>
 
+                <div className="lists-container">
+                    {
+                        // Each list will default to inactive
+                        // list name in a box the width of the container
+                            // use primary color for list name
+                        // clicking on a list marks it active
+                            // down arrow to expand instead?
+                        // the active list expands, displaying list items
+                            // list items should use light background
+                            // list items should have checkbox 
+                    }
+                </div>
+
             </div>
         </>
     )

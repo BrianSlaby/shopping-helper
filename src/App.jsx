@@ -30,8 +30,6 @@ export default function App() {
     return () => unsubscribe()
   }, [])
 
-  console.log(lists)
-
   return (
     <>
       <header>
