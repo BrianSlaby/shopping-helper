@@ -30,16 +30,12 @@ async function addNewListToDB(newListName, user) {
 
 async function fetchLists(user) {
     const q = query(collection(db, "lists"), where("uid", "==", user.uid));
-
     const querySnapshot = await getDocs(q);
-
-    // console.log("querySnapshot")
-    // console.log(querySnapshot)
-
-    // querySnapshot.forEach((doc) => {
-    // // doc.data() is never undefined for query doc snapshots
-    // console.log(doc.id, " => ", doc.data());
-    // });
+    const lists = []
+    querySnapshot.forEach((doc) => {
+        lists.push(doc.data())
+    });
+    return lists
 }
 
 

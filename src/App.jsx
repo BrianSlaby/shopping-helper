@@ -12,19 +12,25 @@ import Item from "./components/Item"
 export default function App() {
   const [ userLoggedIn, setUserLoggedIn ] = React.useState(false)
   const [ user, setUser ] = React.useState(null)
+  const [ lists, setLists ] = React.useState([])
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const uid = user.uid;
-      // user.email
-      // user.displayName
-      setUser(user)
-      setUserLoggedIn(true)
-      fetchLists(user)
-    } else {
-      setUserLoggedIn(false)
-    }
-  });
+  React.useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        // user.email
+        // user.displayName
+        setUser(user)
+        setUserLoggedIn(true)
+        setLists(fetchLists(user))
+      } else {
+        setUserLoggedIn(false)
+      }
+    });
+    return () => unsubscribe()
+  }, [])
+
+  console.log(lists)
 
   return (
     <>
@@ -34,8 +40,8 @@ export default function App() {
       </header>
 
       {userLoggedIn ? 
-        <Home user={user}>
-          
+        <Home user={user} lists={lists}>
+      
         </Home>
       : <AuthRequired />}
 

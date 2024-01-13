@@ -2,7 +2,7 @@ import React from "react"
 import { authSignOut } from "../firebase/authentication"
 import { addNewListToDB } from "../firebase/firestore"
 
-export default function Home({ children, user }) {
+export default function Home({ children, user, lists }) {
     const [ newListName, setNewListName ] = React.useState("")
     const [ newListItem, setNewListItem ] = React.useState("")
 
