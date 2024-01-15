@@ -15,16 +15,19 @@ export default function App() {
   const [ lists, setLists ] = React.useState([])
 
   React.useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const uid = user.uid;
         // user.email
         // user.displayName
         setUser(user)
         setUserLoggedIn(true)
-        setLists(fetchLists(user))
+        const lists = await fetchLists(user)
+        setLists(lists)
       } else {
         setUserLoggedIn(false)
+        setUser(null)
+        setLists([])
       }
     });
     return () => unsubscribe()

@@ -95,11 +95,13 @@ h2 {
   gap: 0.5em;
 }
 
-.create-list-container {
+.create-list-container,
+.create-item-container {
   display: flex;
   gap: 0.5em;
 }
 
-.create-list-container > input {
+.create-list-container > input,
+.create-item-container > input {
   flex-grow: 1;
 }
