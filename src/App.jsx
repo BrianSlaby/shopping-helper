@@ -59,9 +59,8 @@ export default function App() {
         console.error(`${errorCode}: ${errorMessage}`)
       });
       return () => unsubscribe()
-      
     }
- }, [user])
+  }, [user])
 
   return (
     <>

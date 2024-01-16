@@ -37,6 +37,14 @@ export default function Home({ children, user, lists }) {
         listID === activeList ? setActiveList("") : setActiveList(listID)
     }
 
+    function deleteList(event) {
+        console.log("list deleted!")
+    }
+
+    function deleteItem(event) {
+        console.log("item deleted")
+    }
+
     // Update profile options:
         // change name
         // change email
@@ -52,11 +60,22 @@ export default function Home({ children, user, lists }) {
             const listItemsHTML = list.items.map(item => {
                 return (
                     <div className="list-item-container" key={item.name}>
-                        <h4>{item.name}</h4>
+                        <input 
+                            type="checkbox"
+                            name={item.name}
+                        />
+                        <label
+                            htmlFor={item.name}
+                        >{item.name}</label>
+                        <button
+                            className="item-delete-btn"
+                            onClick={deleteItem}
+                            data-name={item.name}
+                        >X</button>
                     </div>
                 )
             })
-            // listItemsHTML isn't re-rendering when I add a new list item, needs page refresh, that's weird.
+            
             return (
                 <div className="list-container" key={list.id}>
                     <div className="list-header-container">
@@ -66,6 +85,11 @@ export default function Home({ children, user, lists }) {
                             onClick={handleActiveList}
                             data-id={list.id}
                         >V</button>
+                        <button
+                            className="list-delete-btn"
+                            onClick={deleteList}
+                            data-id={list.id}
+                        >Delete</button>
                     </div>
 
                     { list.id === activeList && 
