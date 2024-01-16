@@ -22,12 +22,14 @@ export default function Home({ children, user, lists }) {
 
     function submitNewListItem(event) {
         const listID = event.target.dataset.id
-        const newItemObj = {
-            name: newListItem,
-            isChecked: false
+        if (newListItem) {
+            const newItemObj = {
+                name: newListItem,
+                isChecked: false
+            }
+            addNewListItemToDB(newItemObj, listID)
+            setNewListItem("")
         }
-        addNewListItemToDB(newItemObj, listID)
-        setNewListItem("")
     }
 
     function handleActiveList(event) {
@@ -42,6 +44,10 @@ export default function Home({ children, user, lists }) {
         // delete account
 
     function getListsHTML(lists) {
+        if (!lists || lists.length < 1 ) {
+            return <p>No lists available</p>
+        }
+
         return lists.map(list => {
             const listItemsHTML = list.items.map(item => {
                 return (
@@ -56,6 +62,7 @@ export default function Home({ children, user, lists }) {
                     <div className="list-header-container">
                         <h3>{list.name}</h3>
                         <button 
+                            className="list-header-btn"
                             onClick={handleActiveList}
                             data-id={list.id}
                         >V</button>

@@ -1,7 +1,14 @@
 import React from 'react'
 import { onAuthStateChanged } from "firebase/auth";
+import {  
+  doc,
+  collection,
+  query,
+  where,
+  onSnapshot
+} from "firebase/firestore"
 import { auth } from "./firebase/authentication"
-import { fetchLists } from "./firebase/firestore"
+import { db, fetchLists } from "./firebase/firestore"
 import AuthRequired from "./pages/AuthRequired"
 import Home from "./pages/Home"
 // component imports probably getting moved to Home
@@ -13,6 +20,7 @@ export default function App() {
   const [ userLoggedIn, setUserLoggedIn ] = React.useState(false)
   const [ user, setUser ] = React.useState(null)
   const [ lists, setLists ] = React.useState([])
+  
 
   React.useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -22,16 +30,38 @@ export default function App() {
         // user.displayName
         setUser(user)
         setUserLoggedIn(true)
-        const lists = await fetchLists(user)
-        setLists(lists)
+        const listsData = await fetchLists(user)
+        setLists(listsData)
       } else {
         setUserLoggedIn(false)
         setUser(null)
         setLists([])
       }
     });
-    return () => unsubscribe()
+    return () => unsubscribe();
   }, [])
+
+  React.useEffect(() => {
+    if (user) {
+      const q = query(collection(db, "lists"), where("uid", "==", user.uid));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const listsData = []
+        querySnapshot.forEach((doc) => {
+          const data = doc.data()
+          const id = doc.id
+          listsData.push({ ...data, id })
+        });
+        setLists(listsData)
+      },
+      (error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error(`${errorCode}: ${errorMessage}`)
+      });
+      return () => unsubscribe()
+      
+    }
+ }, [user])
 
   return (
     <>

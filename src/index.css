@@ -96,9 +96,15 @@ h2 {
 }
 
 .create-list-container,
-.create-item-container {
+.create-item-container,
+.list-header-container {
   display: flex;
   gap: 0.5em;
+}
+
+.list-header-btn {
+  order: -1;
+  padding: 1em;
 }
 
 .create-list-container > input,

@@ -43,6 +43,7 @@ async function fetchLists(user) {
 
 
 export { 
+    db,
     addNewListToDB,
     fetchLists,
     addNewListItemToDB
