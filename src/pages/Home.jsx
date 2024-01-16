@@ -1,13 +1,11 @@
 import React from "react"
 import { authSignOut } from "../firebase/authentication"
-import { addNewListToDB } from "../firebase/firestore"
+import { addNewListToDB, addNewListItemToDB } from "../firebase/firestore"
 
 export default function Home({ children, user, lists }) {
     const [ newListName, setNewListName ] = React.useState("")
     const [ newListItem, setNewListItem ] = React.useState("")
-    const [ activeList, setActiveList ] = React.useState(null)
-
-    // NEED to find a way to get Firebase List ID in order to setActiveList
+    const [ activeList, setActiveList ] = React.useState("")
 
     function handleNewListName(event) {
         setNewListName(event.target.value)
@@ -19,13 +17,22 @@ export default function Home({ children, user, lists }) {
     }
 
     function handleNewListItem(event) {
-        // add conditional logic to target correct list ID.
         setNewListItem(event.target.value)
     }
 
-    function submitNewListItem() {
-        addNewListItemToDB(newListItem, user, id)
-        setNewListName("")
+    function submitNewListItem(event) {
+        const listID = event.target.dataset.id
+        const newItemObj = {
+            name: newListItem,
+            isChecked: false
+        }
+        addNewListItemToDB(newItemObj, listID)
+        setNewListItem("")
+    }
+
+    function handleActiveList(event) {
+        const listID = event.target.dataset.id 
+        listID === activeList ? setActiveList("") : setActiveList(listID)
     }
 
     // Update profile options:
@@ -33,12 +40,8 @@ export default function Home({ children, user, lists }) {
         // change email
         // change password
         // delete account
-console.log(lists)
 
     function getListsHTML(lists) {
-        console.log(lists.id)
-        // lists.id is undefined, why are we not getting the Firebase ID?
-            // key and ternary both rely on this
         return lists.map(list => {
             const listItemsHTML = list.items.map(item => {
                 return (
@@ -47,27 +50,36 @@ console.log(lists)
                     </div>
                 )
             })
+            // listItemsHTML isn't re-rendering when I add a new list item, needs page refresh, that's weird.
             return (
                 <div className="list-container" key={list.id}>
                     <div className="list-header-container">
                         <h3>{list.name}</h3>
-                        <button>V</button>
+                        <button 
+                            onClick={handleActiveList}
+                            data-id={list.id}
+                        >V</button>
                     </div>
-                    <div className="create-item-container">
-                    <input
-                        className="text-input"
-                        type="text"
-                        placeholder="New Item Name"
-                        value={newListItem} 
-                        onChange={handleNewListItem}
-                    />
 
-                    <button
-                        className="btn primary-btn"
-                        onClick={submitNewListItem}
-                    >Add Item</button>
+                    { list.id === activeList && 
+                    <div className="create-item-container">
+                        <input
+                            className="text-input"
+                            type="text"
+                            placeholder="New Item Name"
+                            value={newListItem} 
+                            onChange={handleNewListItem}
+                        />
+
+                        <button
+                            className="btn primary-btn"
+                            data-id={list.id}
+                            onClick={submitNewListItem}
+                        >Add Item</button>
                     </div>
-                    {list.id === activeList ? listItemsHTML : ""}
+                    }
+
+                    {list.id === activeList && listItemsHTML}
                 </div>
             )
         })
@@ -102,13 +114,10 @@ console.log(lists)
                         // Each list will default to inactive
                         // list name in a box the width of the container
                             // use primary color for list name
-                        // clicking on a list marks it active
-                            // down arrow to expand instead?
                         // the active list expands, displaying list items
                             // list items should use light background
                             // list items should have checkbox 
 
-                            // getting the error about needing a key prop...
                         getListsHTML(lists)
                     }
                 </div>

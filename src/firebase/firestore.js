@@ -8,7 +8,8 @@ import {
     collection, 
     query, 
     where, 
-    getDocs
+    getDocs,
+    arrayUnion
  } from "firebase/firestore";
 
 const db = getFirestore(app);
@@ -21,19 +22,21 @@ async function addNewListToDB(newListName, user) {
       });
 }
 
-// const washingtonRef = doc(db, "cities", "DC");
-
-// // Set the "capital" field of the city 'DC'
-// await updateDoc(washingtonRef, {
-//   capital: true
-// });
+async function addNewListItemToDB(item, listID) {
+    const itemRef = doc(db, "lists", listID);
+    await updateDoc(itemRef, {
+        items: arrayUnion(item)
+    });
+}
 
 async function fetchLists(user) {
     const q = query(collection(db, "lists"), where("uid", "==", user.uid));
     const querySnapshot = await getDocs(q);
     const lists = []
     querySnapshot.forEach((doc) => {
-        lists.push(doc.data())
+        const data = doc.data()
+        const id = doc.id
+        lists.push({ ...data, id })
     });
     return lists
 }
@@ -41,5 +44,6 @@ async function fetchLists(user) {
 
 export { 
     addNewListToDB,
-    fetchLists
+    fetchLists,
+    addNewListItemToDB
  }
