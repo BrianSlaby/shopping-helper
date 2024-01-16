@@ -42,7 +42,8 @@ export default function Home({ children, user, lists }) {
     }
 
     function deleteItem(event) {
-        console.log("item deleted")
+        const itemName = event.target.dataset.name
+        console.log(`${itemName} deleted`)
     }
 
     // Update profile options:
@@ -52,6 +53,14 @@ export default function Home({ children, user, lists }) {
         // delete account
 
     function getListsHTML(lists) {
+        const angleDownIcon = <img 
+            src="/public/icons/angle-down-solid.svg"
+            className="btn-img" />
+        const angleUpIcon = <img 
+            src="/public/icons/angle-up-solid.svg"
+            className="btn-img"/>
+
+
         if (!lists || lists.length < 1 ) {
             return <p>No lists available</p>
         }
@@ -79,12 +88,12 @@ export default function Home({ children, user, lists }) {
             return (
                 <div className="list-container" key={list.id}>
                     <div className="list-header-container">
-                        <h3>{list.name}</h3>
+                        <h3 className="list-title">{list.name}</h3>
                         <button 
                             className="list-header-btn"
                             onClick={handleActiveList}
                             data-id={list.id}
-                        >V</button>
+                        >{list.id === activeList ? angleUpIcon : angleDownIcon}</button>
                         <button
                             className="list-delete-btn"
                             onClick={deleteList}
@@ -109,8 +118,10 @@ export default function Home({ children, user, lists }) {
                         >Add Item</button>
                     </div>
                     }
-
-                    {list.id === activeList && listItemsHTML}
+                    <div className="list-items-container">
+                        {list.id === activeList && listItemsHTML}
+                    </div>
+                    
                 </div>
             )
         })
