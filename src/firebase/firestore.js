@@ -29,6 +29,13 @@ async function addNewListItemToDB(item, listID) {
     });
 }
 
+async function deleteListItemFromDB(item, listID) {
+    const itemRef = doc(db, "lists", listID);
+    await updateDoc(itemRef, {
+        items: arrayRemove(item)
+    });
+}
+
 async function fetchLists(user) {
     const q = query(collection(db, "lists"), where("uid", "==", user.uid));
     const querySnapshot = await getDocs(q);
@@ -46,5 +53,6 @@ export {
     db,
     addNewListToDB,
     fetchLists,
-    addNewListItemToDB
+    addNewListItemToDB,
+    deleteListItemFromDB
  }

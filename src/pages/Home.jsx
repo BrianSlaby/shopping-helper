@@ -1,6 +1,10 @@
 import React from "react"
 import { authSignOut } from "../firebase/authentication"
-import { addNewListToDB, addNewListItemToDB } from "../firebase/firestore"
+import { 
+    addNewListToDB, 
+    addNewListItemToDB,
+    deleteListItemFromDB 
+} from "../firebase/firestore"
 
 export default function Home({ children, user, lists }) {
     const [ newListName, setNewListName ] = React.useState("")
@@ -43,8 +47,23 @@ export default function Home({ children, user, lists }) {
 
     function deleteItem(event) {
         const itemName = event.target.dataset.name
+        const listID = event.target.dataset.id
+
+        //deleteListItemFromDB(itemName, listID)
+            // I think I need to pass the entire object to the function
+            // Which means I need to get the checkbox value somehow
+            // doc.getElByID(checkbox).checked   How in React?
+            // lists should stay up to date if the checkbox onChange updates firebase
         console.log(`${itemName} deleted`)
     }
+
+    // update list items from an array into next objects?
+    // items: {
+        // itemName: {
+            //name: itemName,
+            //isChecked: false
+        //}
+    // }
 
     // Update profile options:
         // change name
