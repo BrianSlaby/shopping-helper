@@ -1,15 +1,18 @@
 import React from "react"
 import { authSignOut } from "../firebase/authentication"
-import { 
+import {  
     addNewListToDB, 
     addNewListItemToDB,
     deleteListItemFromDB 
 } from "../firebase/firestore"
+import DeleteWarning from "../components/modals/DeleteWarning"
 
 export default function Home({ children, user, lists }) {
     const [ newListName, setNewListName ] = React.useState("")
     const [ newListItem, setNewListItem ] = React.useState("")
     const [ activeList, setActiveList ] = React.useState("")
+    const [ isListWarningOpen, setIsListWarningOpen ] = React.useState(false)
+    const [ listWarningId, setListWarningId ] = React.useState("")
 
     function handleNewListName(event) {
         setNewListName(event.target.value)
@@ -41,8 +44,16 @@ export default function Home({ children, user, lists }) {
         listID === activeList ? setActiveList("") : setActiveList(listID)
     }
 
-    function deleteList(event) {
-        console.log("list deleted!")
+    function openDeleteListModal(event) {
+        const listID = event.target.dataset.id
+        
+        setIsListWarningOpen(true)
+        setListWarningId(listID)
+    }
+
+    function handleCloseListWarning() {
+        setIsListWarningOpen(false)
+        setListWarningId("")
     }
 
     function deleteItem(event) {
@@ -115,7 +126,7 @@ export default function Home({ children, user, lists }) {
                         >{list.id === activeList ? angleUpIcon : angleDownIcon}</button>
                         <button
                             className="list-delete-btn"
-                            onClick={deleteList}
+                            onClick={openDeleteListModal}
                             data-id={list.id}
                         >Delete</button>
                     </div>
@@ -153,7 +164,6 @@ export default function Home({ children, user, lists }) {
                     <button className="btn" onClick={authSignOut}>Sign Out</button>
                     <button className="btn" onClick={() => console.log("clicked")}>Update Profile</button>
                 </div>
-                <h2>Welcome!</h2>
 
                 <div className="create-list-container">
                     <input
@@ -171,19 +181,18 @@ export default function Home({ children, user, lists }) {
                 </div>
 
                 <div className="lists-container">
-                    {
-                        // Each list will default to inactive
-                        // list name in a box the width of the container
-                            // use primary color for list name
-                        // the active list expands, displaying list items
-                            // list items should use light background
-                            // list items should have checkbox 
 
-                        getListsHTML(lists)
-                    }
+                    { getListsHTML(lists) }
+
                 </div>
 
             </div>
+
+            <DeleteWarning 
+                isOpen={isListWarningOpen}
+                closeModal={handleCloseListWarning}
+                listWarningId={listWarningId}
+            />
         </>
     )
 }

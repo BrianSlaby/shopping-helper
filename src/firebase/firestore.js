@@ -9,7 +9,8 @@ import {
     query, 
     where, 
     getDocs,
-    arrayUnion
+    arrayUnion,
+    deleteDoc
  } from "firebase/firestore";
 
 const db = getFirestore(app);
@@ -48,11 +49,15 @@ async function fetchLists(user) {
     return lists
 }
 
+async function deleteListFromDB(listID) {
+    await deleteDoc(doc(db, "lists", listID));
+}
 
 export { 
     db,
     addNewListToDB,
     fetchLists,
     addNewListItemToDB,
-    deleteListItemFromDB
+    deleteListItemFromDB,
+    deleteListFromDB
  }
