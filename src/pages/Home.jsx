@@ -6,13 +6,17 @@ import {
     deleteListItemFromDB 
 } from "../firebase/firestore"
 import DeleteWarning from "../components/modals/DeleteWarning"
+import UserLists from "../components/lists/UserLists"
 
 export default function Home({ children, user, lists }) {
     const [ newListName, setNewListName ] = React.useState("")
-    const [ newListItem, setNewListItem ] = React.useState("")
+    // moved to UserLists
     const [ activeList, setActiveList ] = React.useState("")
     const [ isListWarningOpen, setIsListWarningOpen ] = React.useState(false)
     const [ listWarningId, setListWarningId ] = React.useState("")
+    // moved to UserListItems
+    const [ newListItem, setNewListItem ] = React.useState("")
+
 
     function handleNewListName(event) {
         setNewListName(event.target.value)
@@ -23,10 +27,12 @@ export default function Home({ children, user, lists }) {
         setNewListName("")
     }
 
+    // moved to UserListItems
     function handleNewListItem(event) {
         setNewListItem(event.target.value)
     }
 
+    // moved to UserListItems
     function submitNewListItem(event) {
         const listID = event.target.dataset.id
         if (newListItem) {
@@ -39,11 +45,13 @@ export default function Home({ children, user, lists }) {
         }
     }
 
+    // moved to UserLists
     function handleActiveList(event) {
         const listID = event.target.dataset.id 
         listID === activeList ? setActiveList("") : setActiveList(listID)
     }
 
+    // moved to UserLists
     function openDeleteListModal(event) {
         const listID = event.target.dataset.id
         
@@ -51,11 +59,13 @@ export default function Home({ children, user, lists }) {
         setListWarningId(listID)
     }
 
+    // moved to UserLists
     function handleCloseListWarning() {
         setIsListWarningOpen(false)
         setListWarningId("")
     }
 
+    // moved to UserListItems
     function deleteItem(event) {
         const itemName = event.target.dataset.name
         const listID = event.target.dataset.id
@@ -68,20 +78,7 @@ export default function Home({ children, user, lists }) {
         console.log(`${itemName} deleted`)
     }
 
-    // update list items from an array into next objects?
-    // items: {
-        // itemName: {
-            //name: itemName,
-            //isChecked: false
-        //}
-    // }
-
-    // Update profile options:
-        // change name
-        // change email
-        // change password
-        // delete account
-
+    // moved to UserLists
     function getListsHTML(lists) {
         const angleDownIcon = <img 
             src="/public/icons/angle-down-solid.svg"
@@ -160,6 +157,9 @@ export default function Home({ children, user, lists }) {
         })
     }
 
+
+
+
     return(
         <>
             <div className="home-container">
@@ -187,15 +187,30 @@ export default function Home({ children, user, lists }) {
 
                     { getListsHTML(lists) }
 
+                    <UserLists
+                        user={user}
+                        lists={lists} 
+                    />
+
                 </div>
 
             </div>
 
-            <DeleteWarning 
-                isOpen={isListWarningOpen}
-                closeModal={handleCloseListWarning}
-                listWarningId={listWarningId}
-            />
+            
         </>
     )
 }
+
+// update list items from an array into next objects?
+    // items: {
+        // itemName: {
+            //name: itemName,
+            //isChecked: false
+        //}
+    // }
+
+    // Update profile options:
+        // change name
+        // change email
+        // change password
+        // delete account

@@ -1,6 +1,7 @@
 import React from "react"
+import "./list.css"
 
-export default function List({ children, type="ul"}) {
+export default function List({ children, type="ul" }) {
     // prop to determine list styling; lists collection will contain a list of each named list, and each named list will have a nested array of list item objects styled as checkboxes.
     return (
         <>

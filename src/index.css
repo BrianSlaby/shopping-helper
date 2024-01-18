@@ -129,6 +129,7 @@ h2 {
   background-color: transparent;
   border: none;
   cursor: pointer;
+  transition: transform 0.3s;
 }
 
 .list-header-btn:hover {
@@ -164,6 +165,7 @@ h2 {
 .item-delete-btn {
   padding: 0.3em;
   border: none;
+  transition: transform 0.3s;
 }
 
 .item-delete-btn:hover {
@@ -181,24 +183,3 @@ h2 {
 .list-item-container:last-child {
   border-bottom: none;
 }
-
-
-   /* ===============================
-               MODAL
-   =============================== */
-
-   .warning-modal-btn-container,
-   .close-modal-btn-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   }
-
-   .modal {
-    border-radius: 12px;
-   }
-
-   .modal-btn {
-    min-width: 50%;
-    margin: 0.5em;
-   }

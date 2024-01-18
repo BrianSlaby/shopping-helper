@@ -1,0 +1,15 @@
+.warning-modal-btn-container,
+.close-modal-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    border-radius: 12px;
+}
+
+.modal-btn {
+    min-width: 50%;
+    margin: 0.5em;
+}
