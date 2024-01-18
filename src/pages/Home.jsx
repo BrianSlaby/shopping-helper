@@ -10,7 +10,8 @@ export default function Home({ children, user, lists }) {
         setNewListName(event.target.value)
     }
 
-    function submitNewList() {
+    function submitNewList(event) {
+        event.preventDefault()
         if (newListName) {
             addNewListToDB(newListName, user)
         setNewListName("")
@@ -25,7 +26,7 @@ export default function Home({ children, user, lists }) {
                 <button className="btn" onClick={() => console.log("clicked")}>Update Profile</button>
             </div>
 
-            <div className="create-list-container">
+            <form className="create-list-container">
                 <input
                     className="text-input"
                     type="text"
@@ -38,7 +39,7 @@ export default function Home({ children, user, lists }) {
                     className="btn primary-btn"
                     onClick={submitNewList}
                 >Create List</button>
-            </div>
+            </form>
 
             <div className="lists-container">
                 <UserLists

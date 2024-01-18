@@ -32,6 +32,7 @@ export default function UserLists({ lists }) {
     }
     
     function submitNewListItem(event) {
+        event.preventDefault()
         const listID = event.target.dataset.id
 
         if (newListItem) {
@@ -74,7 +75,7 @@ export default function UserLists({ lists }) {
                     </div>
 
                     { list.id === activeList && 
-                    <div className="create-item-container">
+                    <form className="create-item-container">
                         <input
                             className="text-input"
                             type="text"
@@ -88,7 +89,7 @@ export default function UserLists({ lists }) {
                             data-id={list.id}
                             onClick={submitNewListItem}
                         >Add Item</button>
-                    </div>
+                    </form>
                     }
                     <div className="list-items-container">
                         {list.id === activeList && 

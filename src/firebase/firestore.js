@@ -30,6 +30,21 @@ async function addNewListItemToDB(newItemObj, newItemName, listID) {
     });
 }
 
+async function updateListItemChecked(itemName, isChecked, listID) {
+    try {
+        const listRef = doc(db, "lists", listID);
+
+        await updateDoc(listRef, {
+            [`items.${itemName}.isChecked`]: isChecked
+        });
+
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error(`${errorCode}: ${errorMessage}`)
+    }
+}
+
 async function deleteListItemFromDB(itemName, listID) {
     try {
         const listRef = doc(db, "lists", listID);
@@ -70,6 +85,7 @@ export {
     addNewListToDB,
     fetchLists,
     addNewListItemToDB,
+    updateListItemChecked,
     deleteListItemFromDB,
     deleteListFromDB
  }

@@ -1,9 +1,23 @@
 import React from "react"
 import List from "./List"
-import { deleteListItemFromDB } from "../../firebase/firestore"
+import { 
+    deleteListItemFromDB, 
+    updateListItemChecked 
+} from "../../firebase/firestore"
 
 export default function UserListItems({ list, activeList }) {
     const listItemsArray = Object.values(list.items)
+
+    function handleCheckbox(event) {
+        const itemName = event.target.dataset.name
+        const listID = activeList
+
+        if (event.target.checked) {
+            updateListItemChecked(itemName, true, listID)
+        } else {
+            updateListItemChecked(itemName, false, listID)
+        }
+    }
 
     function deleteItem(event) {
         const itemName = event.target.dataset.name
@@ -26,6 +40,8 @@ export default function UserListItems({ list, activeList }) {
                         <input 
                             type="checkbox"
                             name={item.name}
+                            onChange={handleCheckbox}
+                            data-name={item.name}
                         />
                         <label
                             htmlFor={item.name}
