@@ -92,7 +92,10 @@ export default function UserLists({ lists }) {
                     }
                     <div className="list-items-container">
                         {list.id === activeList && 
-                        <UserListItems list={list}/>
+                        <UserListItems 
+                            list={list}
+                            activeList={activeList}
+                        />
                         }
                     </div>
                 </div>

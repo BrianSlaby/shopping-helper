@@ -2,20 +2,14 @@ import React from "react"
 import List from "./List"
 import { deleteListItemFromDB } from "../../firebase/firestore"
 
-export default function UserListItems({ list }) {
+export default function UserListItems({ list, activeList }) {
     const listItemsArray = Object.values(list.items)
 
-    // Refactoring
     function deleteItem(event) {
         const itemName = event.target.dataset.name
-        const listID = event.target.dataset.id
+        const listID = activeList
 
-        //deleteListItemFromDB(itemName, listID)
-            // I think I need to pass the entire object to the function
-            // Which means I need to get the checkbox value somehow
-            // doc.getElByID(checkbox).checked   How in React?
-            // lists should stay up to date if the checkbox onChange updates firebase
-        console.log(`${itemName} deleted`)
+        deleteListItemFromDB(itemName, listID)
     }
 
     const xIcon = <img 

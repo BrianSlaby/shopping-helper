@@ -7,9 +7,9 @@ import {
     updateDoc,
     collection, 
     query, 
-    where, 
+    where,
+    getDoc, 
     getDocs,
-    arrayUnion,
     deleteDoc
  } from "firebase/firestore";
 
@@ -29,12 +29,24 @@ async function addNewListItemToDB(newItemObj, newItemName, listID) {
         [`items.${newItemName}`]: newItemObj
     });
 }
-// needs refactoring
+
 async function deleteListItemFromDB(itemName, listID) {
-    const itemRef = doc(db, "lists", listID);
-    await updateDoc(itemRef, {
-        items: arrayRemove(item)
-    });
+    try {
+        const listRef = doc(db, "lists", listID);
+        const docSnap = await getDoc( listRef );
+        const docData = docSnap.data()
+        const itemsData = { ...docData.items }
+        delete itemsData[itemName]
+
+        await updateDoc(listRef, {
+            "items": itemsData
+        });
+
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error(`${errorCode}: ${errorMessage}`)
+    }
 }
 
 async function fetchLists(user) {
