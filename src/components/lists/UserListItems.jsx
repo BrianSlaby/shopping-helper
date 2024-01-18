@@ -1,25 +1,7 @@
 import React from "react"
 import List from "./List"
-import { addNewListItemToDB } from "../../firebase/firestore"
 
-export default function UserListItems({ children, list }) {
-    const [ newListItem, setNewListItem ] = React.useState("")
-
-    function handleNewListItem(event) {
-        setNewListItem(event.target.value)
-    }
-
-    function submitNewListItem(event) {
-        const listID = event.target.dataset.id
-        if (newListItem) {
-            const newItemObj = {
-                name: newListItem,
-                isChecked: false
-            }
-            addNewListItemToDB(newItemObj, listID)
-            setNewListItem("")
-        }
-    }
+export default function UserListItems({ list }) {
 
     function deleteItem(event) {
         const itemName = event.target.dataset.name
@@ -33,14 +15,9 @@ export default function UserListItems({ children, list }) {
         console.log(`${itemName} deleted`)
     }
 
-
     const xIcon = <img 
         className="btn-img" 
         src="/public/icons/circle-xmark-regular.svg" />
-
-
-    
-
 
     return (
         <List>

@@ -1,6 +1,5 @@
 import React from "react"
 import Modal from "./Modal"
-import "./modal.css"
 import { deleteListFromDB } from "../../firebase/firestore"
 
 export default function DeleteWarning({ isOpen, closeModal, listWarningId }) {

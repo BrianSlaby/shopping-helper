@@ -2,11 +2,13 @@ import React from "react"
 import List from "./List"
 import UserListItems from "./UserListItems"
 import DeleteWarning from "../modals/DeleteWarning"
+import { addNewListItemToDB } from "../../firebase/firestore"
 
-export default function UserLists({ children, user, lists }) {
+export default function UserLists({ lists }) {
     const [ activeList, setActiveList ] = React.useState("")
     const [ isListWarningOpen, setIsListWarningOpen ] = React.useState(false)
     const [ listWarningId, setListWarningId ] = React.useState("")
+    const [ newListItem, setNewListItem ] = React.useState("")
 
     function handleActiveList(event) {
         const listID = event.target.dataset.id 
@@ -25,7 +27,21 @@ export default function UserLists({ children, user, lists }) {
         setListWarningId("")
     }
 
+    function handleNewListItem(event) {
+        setNewListItem(event.target.value)
+    }
 
+    function submitNewListItem(event) {
+        const listID = event.target.dataset.id
+        if (newListItem) {
+            const newItemObj = {
+                name: newListItem,
+                isChecked: false
+            }
+            addNewListItemToDB(newItemObj, listID)
+            setNewListItem("")
+        }
+    }
 
     const angleDownIcon = <img 
         src="/public/icons/angle-down-solid.svg"
@@ -33,42 +49,13 @@ export default function UserLists({ children, user, lists }) {
     const angleUpIcon = <img 
         src="/public/icons/angle-up-solid.svg"
         className="btn-img"/>
-    // Will get moved to User List Items
-    const xIcon = <img 
-        className="btn-img" 
-        src="/public/icons/circle-xmark-regular.svg" />
 
-
-
-    function getListsHTML(lists) {
-
-        if (!lists || lists.length < 1 ) {
-            return <p>No lists available</p>
-        }
-
-        return lists.map(list => {
-
-
-            // const listItemsHTML = list.items.map(item => {
-            //     return (
-            //         <div className="list-item-container" key={item.name}>
-            //             <input 
-            //                 type="checkbox"
-            //                 name={item.name}
-            //             />
-            //             <label
-            //                 htmlFor={item.name}
-            //             >{item.name}</label>
-            //             <button
-            //                 className="item-delete-btn"
-            //                 onClick={deleteItem}
-            //                 data-name={item.name}
-            //             >{xIcon}</button>
-            //         </div>
-            //     )
-            // })
-            
-
+    return (
+    <>
+        <List>
+        { lists.length < 1 && <p>No lists available</p> }
+        
+        { lists.length > 0 && lists.map(list => {
             return (
                 <div className="list-container" key={list.id}>
                     <div className="list-header-container">
@@ -84,10 +71,6 @@ export default function UserLists({ children, user, lists }) {
                             data-id={list.id}
                         >Delete</button>
                     </div>
-
-
-
-
 
                     { list.id === activeList && 
                     <div className="create-item-container">
@@ -107,25 +90,19 @@ export default function UserLists({ children, user, lists }) {
                     </div>
                     }
                     <div className="list-items-container">
-                        {list.id === activeList && <UserListItems list={list}/>}
+                        {list.id === activeList && <UserListItems 
+                                                    list={list}/>}
                     </div>
-                    
                 </div>
-            )
-        })
-    }
+            )})
+        }
+        </List>
 
-    return (
-        <>
-            <List>
-                {getListsHTML(lists)}
-            </List>
-
-            <DeleteWarning 
-                isOpen={isListWarningOpen}
-                closeModal={handleCloseListWarning}
-                listWarningId={listWarningId}
-            />
-        </>
+        <DeleteWarning 
+            isOpen={isListWarningOpen}
+            closeModal={handleCloseListWarning}
+            listWarningId={listWarningId}
+        />
+    </>
     )
 }

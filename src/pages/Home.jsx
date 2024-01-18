@@ -1,22 +1,10 @@
 import React from "react"
 import { authSignOut } from "../firebase/authentication"
-import {  
-    addNewListToDB, 
-    addNewListItemToDB,
-    deleteListItemFromDB 
-} from "../firebase/firestore"
-import DeleteWarning from "../components/modals/DeleteWarning"
+import { addNewListToDB } from "../firebase/firestore"
 import UserLists from "../components/lists/UserLists"
 
 export default function Home({ children, user, lists }) {
     const [ newListName, setNewListName ] = React.useState("")
-    // moved to UserLists
-    const [ activeList, setActiveList ] = React.useState("")
-    const [ isListWarningOpen, setIsListWarningOpen ] = React.useState(false)
-    const [ listWarningId, setListWarningId ] = React.useState("")
-    // moved to UserListItems
-    const [ newListItem, setNewListItem ] = React.useState("")
-
 
     function handleNewListName(event) {
         setNewListName(event.target.value)
@@ -27,177 +15,36 @@ export default function Home({ children, user, lists }) {
         setNewListName("")
     }
 
-    // moved to UserListItems
-    function handleNewListItem(event) {
-        setNewListItem(event.target.value)
-    }
-
-    // moved to UserListItems
-    function submitNewListItem(event) {
-        const listID = event.target.dataset.id
-        if (newListItem) {
-            const newItemObj = {
-                name: newListItem,
-                isChecked: false
-            }
-            addNewListItemToDB(newItemObj, listID)
-            setNewListItem("")
-        }
-    }
-
-    // moved to UserLists
-    function handleActiveList(event) {
-        const listID = event.target.dataset.id 
-        listID === activeList ? setActiveList("") : setActiveList(listID)
-    }
-
-    // moved to UserLists
-    function openDeleteListModal(event) {
-        const listID = event.target.dataset.id
-        
-        setIsListWarningOpen(true)
-        setListWarningId(listID)
-    }
-
-    // moved to UserLists
-    function handleCloseListWarning() {
-        setIsListWarningOpen(false)
-        setListWarningId("")
-    }
-
-    // moved to UserListItems
-    function deleteItem(event) {
-        const itemName = event.target.dataset.name
-        const listID = event.target.dataset.id
-
-        //deleteListItemFromDB(itemName, listID)
-            // I think I need to pass the entire object to the function
-            // Which means I need to get the checkbox value somehow
-            // doc.getElByID(checkbox).checked   How in React?
-            // lists should stay up to date if the checkbox onChange updates firebase
-        console.log(`${itemName} deleted`)
-    }
-
-    // moved to UserLists
-    function getListsHTML(lists) {
-        const angleDownIcon = <img 
-            src="/public/icons/angle-down-solid.svg"
-            className="btn-img" />
-        const angleUpIcon = <img 
-            src="/public/icons/angle-up-solid.svg"
-            className="btn-img"/>
-        const xIcon = <img 
-            className="btn-img" 
-            src="/public/icons/circle-xmark-regular.svg" />
-
-
-        if (!lists || lists.length < 1 ) {
-            return <p>No lists available</p>
-        }
-
-        return lists.map(list => {
-            const listItemsHTML = list.items.map(item => {
-                return (
-                    <div className="list-item-container" key={item.name}>
-                        <input 
-                            type="checkbox"
-                            name={item.name}
-                        />
-                        <label
-                            htmlFor={item.name}
-                        >{item.name}</label>
-                        <button
-                            className="item-delete-btn"
-                            onClick={deleteItem}
-                            data-name={item.name}
-                        >{xIcon}</button>
-                    </div>
-                )
-            })
-            
-            return (
-                <div className="list-container" key={list.id}>
-                    <div className="list-header-container">
-                        <h3 className="list-title">{list.name}</h3>
-                        <button 
-                            className="list-header-btn"
-                            onClick={handleActiveList}
-                            data-id={list.id}
-                        >{list.id === activeList ? angleUpIcon : angleDownIcon}</button>
-                        <button
-                            className="list-delete-btn"
-                            onClick={openDeleteListModal}
-                            data-id={list.id}
-                        >Delete</button>
-                    </div>
-
-                    { list.id === activeList && 
-                    <div className="create-item-container">
-                        <input
-                            className="text-input"
-                            type="text"
-                            placeholder="New Item Name"
-                            value={newListItem} 
-                            onChange={handleNewListItem}
-                        />
-
-                        <button
-                            className="btn primary-btn"
-                            data-id={list.id}
-                            onClick={submitNewListItem}
-                        >Add Item</button>
-                    </div>
-                    }
-                    <div className="list-items-container">
-                        {list.id === activeList && listItemsHTML}
-                    </div>
-                    
-                </div>
-            )
-        })
-    }
-
-
-
-
     return(
-        <>
-            <div className="home-container">
-                <div className="home-nav-container">
-                    <button className="btn" onClick={authSignOut}>Sign Out</button>
-                    <button className="btn" onClick={() => console.log("clicked")}>Update Profile</button>
-                </div>
-
-                <div className="create-list-container">
-                    <input
-                        className="text-input"
-                        type="text"
-                        placeholder="New List Name"
-                        value={newListName} 
-                        onChange={handleNewListName}
-                    />
-
-                    <button
-                        className="btn primary-btn"
-                        onClick={submitNewList}
-                    >Create List</button>
-                </div>
-
-                <div className="lists-container">
-
-                    { getListsHTML(lists) }
-
-                    <UserLists
-                        user={user}
-                        lists={lists} 
-                    />
-
-                </div>
-
+    <>
+        <div className="home-container">
+            <div className="home-nav-container">
+                <button className="btn" onClick={authSignOut}>Sign Out</button>
+                <button className="btn" onClick={() => console.log("clicked")}>Update Profile</button>
             </div>
 
-            
-        </>
+            <div className="create-list-container">
+                <input
+                    className="text-input"
+                    type="text"
+                    placeholder="New List Name"
+                    value={newListName} 
+                    onChange={handleNewListName}
+                />
+
+                <button
+                    className="btn primary-btn"
+                    onClick={submitNewList}
+                >Create List</button>
+            </div>
+
+            <div className="lists-container">
+                <UserLists
+                    lists={lists} 
+                />
+            </div>
+        </div>
+    </>
     )
 }
 
