@@ -30,15 +30,16 @@ export default function UserLists({ lists }) {
     function handleNewListItem(event) {
         setNewListItem(event.target.value)
     }
-
+    
     function submitNewListItem(event) {
         const listID = event.target.dataset.id
+
         if (newListItem) {
             const newItemObj = {
                 name: newListItem,
                 isChecked: false
             }
-            addNewListItemToDB(newItemObj, listID)
+            addNewListItemToDB(newItemObj, newListItem, listID)
             setNewListItem("")
         }
     }
@@ -90,8 +91,9 @@ export default function UserLists({ lists }) {
                     </div>
                     }
                     <div className="list-items-container">
-                        {list.id === activeList && <UserListItems 
-                                                    list={list}/>}
+                        {list.id === activeList && 
+                        <UserListItems list={list}/>
+                        }
                     </div>
                 </div>
             )})

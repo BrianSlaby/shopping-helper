@@ -19,18 +19,18 @@ async function addNewListToDB(newListName, user) {
     const docRef = await addDoc(collection(db, "lists"), {
         name: newListName,
         uid: user.uid,
-        items: []
+        items: {}
       });
 }
 
-async function addNewListItemToDB(item, listID) {
+async function addNewListItemToDB(newItemObj, newItemName, listID) {
     const itemRef = doc(db, "lists", listID);
     await updateDoc(itemRef, {
-        items: arrayUnion(item)
+        [`items.${newItemName}`]: newItemObj
     });
 }
-
-async function deleteListItemFromDB(item, listID) {
+// needs refactoring
+async function deleteListItemFromDB(itemName, listID) {
     const itemRef = doc(db, "lists", listID);
     await updateDoc(itemRef, {
         items: arrayRemove(item)

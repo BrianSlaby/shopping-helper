@@ -11,8 +11,10 @@ export default function Home({ children, user, lists }) {
     }
 
     function submitNewList() {
-        addNewListToDB(newListName, user)
+        if (newListName) {
+            addNewListToDB(newListName, user)
         setNewListName("")
+        }
     }
 
     return(
@@ -47,14 +49,6 @@ export default function Home({ children, user, lists }) {
     </>
     )
 }
-
-// update list items from an array into next objects?
-    // items: {
-        // itemName: {
-            //name: itemName,
-            //isChecked: false
-        //}
-    // }
 
     // Update profile options:
         // change name

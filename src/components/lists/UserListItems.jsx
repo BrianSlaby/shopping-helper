@@ -1,8 +1,11 @@
 import React from "react"
 import List from "./List"
+import { deleteListItemFromDB } from "../../firebase/firestore"
 
 export default function UserListItems({ list }) {
+    const listItemsArray = Object.values(list.items)
 
+    // Refactoring
     function deleteItem(event) {
         const itemName = event.target.dataset.name
         const listID = event.target.dataset.id
@@ -21,8 +24,9 @@ export default function UserListItems({ list }) {
 
     return (
         <List listClass="user-list">
-        {
-            list.items.map(item => {
+        {   listItemsArray.length < 1 ?
+            <p>This list does not contain any items</p> :
+            listItemsArray.map(item => {
                 return (
                     <div className="list-item-container" key={item.name}>
                         <input 
