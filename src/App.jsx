@@ -66,11 +66,11 @@ export default function App() {
       </header>
 
       {userLoggedIn ? 
-        <Home user={user} lists={lists}>
-      
-        </Home>
+        <Home 
+          user={user} 
+          lists={lists}
+        />
       : <AuthRequired />}
-
     </>
   )
 }
