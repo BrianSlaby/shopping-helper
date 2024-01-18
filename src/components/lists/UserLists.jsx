@@ -52,7 +52,7 @@ export default function UserLists({ lists }) {
 
     return (
     <>
-        <List>
+        <List listClass="user-list">
         { lists.length < 1 && <p>No lists available</p> }
         
         { lists.length > 0 && lists.map(list => {

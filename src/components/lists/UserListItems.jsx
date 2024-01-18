@@ -20,7 +20,7 @@ export default function UserListItems({ list }) {
         src="/public/icons/circle-xmark-regular.svg" />
 
     return (
-        <List>
+        <List listClass="user-list">
         {
             list.items.map(item => {
                 return (
