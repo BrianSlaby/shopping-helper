@@ -89,6 +89,9 @@ export default function Home({ children, user, lists }) {
         const angleUpIcon = <img 
             src="/public/icons/angle-up-solid.svg"
             className="btn-img"/>
+        const xIcon = <img 
+            className="btn-img" 
+            src="/public/icons/circle-xmark-regular.svg" />
 
 
         if (!lists || lists.length < 1 ) {
@@ -110,7 +113,7 @@ export default function Home({ children, user, lists }) {
                             className="item-delete-btn"
                             onClick={deleteItem}
                             data-name={item.name}
-                        >X</button>
+                        >{xIcon}</button>
                     </div>
                 )
             })

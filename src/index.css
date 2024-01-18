@@ -131,6 +131,10 @@ h2 {
   cursor: pointer;
 }
 
+.list-header-btn:hover {
+  transform: scale(1.25)
+}
+
 .create-list-container > input,
 .create-item-container > input {
   flex-grow: 1;
@@ -140,26 +144,30 @@ h2 {
 .list-delete-btn,
 .item-delete-btn {
   cursor: pointer;
-  border: 1px solid firebrick;
-  color: firebrick;
   background-color: transparent;
-  text-transform: uppercase;
   margin: 0.5em 0.5em 0.5em auto;
-  transition: background-color 0.5s, color 0.5s;
-}
-
-.list-delete-btn:hover,
-.item-delete-btn:hover {
-  background-color: firebrick;
-  color: #FFF;
 }
 
 .list-delete-btn {
   border-radius: 8px;
+  border: 1px solid firebrick;
+  color: firebrick;
+  text-transform: uppercase;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+.list-delete-btn:hover {
+  background-color: firebrick;
+  color: #FFF;
 }
 
 .item-delete-btn {
-  border-radius: 50%;
+  padding: 0.3em;
+  border: none;
+}
+
+.item-delete-btn:hover {
+  transform: scale(1.2);
 }
 
 .list-item-container {
