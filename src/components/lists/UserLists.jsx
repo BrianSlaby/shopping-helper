@@ -3,6 +3,7 @@ import List from "./List"
 import UserListItems from "./UserListItems"
 import DeleteWarning from "../modals/DeleteWarning"
 import { addNewListItemToDB } from "../../firebase/firestore"
+import { prepStringForDbPath } from "../../utils/functions"
 
 export default function UserLists({ lists }) {
     const [ activeList, setActiveList ] = React.useState("")
@@ -26,21 +27,24 @@ export default function UserLists({ lists }) {
         setIsListWarningOpen(false)
         setListWarningId("")
     }
-
+   
     function handleNewListItem(event) {
         setNewListItem(event.target.value)
     }
-    
+
     function submitNewListItem(event) {
         event.preventDefault()
         const listID = event.target.dataset.id
 
         if (newListItem) {
+            const newListItemCleaned = prepStringForDbPath(newListItem)
+            setNewListItem(newListItemCleaned)
+
             const newItemObj = {
-                name: newListItem,
+                name: newListItemCleaned,
                 isChecked: false
             }
-            addNewListItemToDB(newItemObj, newListItem, listID)
+            addNewListItemToDB(newItemObj, newListItemCleaned, listID)
             setNewListItem("")
         }
     }
