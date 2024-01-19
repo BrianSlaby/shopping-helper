@@ -22,8 +22,14 @@ export default function Home({ children, user, lists }) {
     <>
         <div className="home-container">
             <div className="home-nav-container">
-                <button className="btn" onClick={authSignOut}>Sign Out</button>
-                <button className="btn" onClick={() => console.log("clicked")}>Update Profile</button>
+                <button 
+                    className="btn secondary-btn" 
+                    onClick={authSignOut}
+                >Sign Out</button>
+                <button 
+                    className="btn secondary-btn" 
+                    onClick={() => console.log("clicked")}
+                >Update Profile</button>
             </div>
 
             <form className="create-list-container">

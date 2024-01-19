@@ -47,11 +47,20 @@ h2 {
   color: var(--text-clr);
   text-transform: uppercase;
   box-shadow: 1px 1px 2px var(--md-neutral-clr);
+  transition: transform 1s;
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.primary-btn,
+.secondary-btn {
+  transition: background-color 1s, box-shadow 1s;
 }
 
 .primary-btn {
   background-color: var(--secondary-clr);
-  transition: background-color 1s;
 }
 
 .primary-btn:hover,
@@ -66,6 +75,11 @@ h2 {
 .secondary-btn:hover,
 .secondary-btn:focus {
   background-color: var(--accent-clr-drk);
+}
+
+.primary-btn:active,
+.secondary-btn:active {
+  box-shadow: none;
 }
 
 .btn-img {
