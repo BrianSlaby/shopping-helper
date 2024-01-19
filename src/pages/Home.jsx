@@ -37,6 +37,7 @@ export default function Home({ children, user, lists }) {
                     className="text-input"
                     type="text"
                     placeholder="New List Name"
+                    maxLength="20"
                     value={newListName} 
                     onChange={handleNewListName}
                 />

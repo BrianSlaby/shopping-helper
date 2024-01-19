@@ -90,17 +90,129 @@ h2 {
          AUTH REQUIRED PAGE 
    =============================== */
 
-.login-container {
+
+/* .login-container class from old code, prbly delete */
+.login-container,
+.auth-form,
+.form-container,
+.login-options-container {
   display: flex;
   flex-direction: column;
   max-width: 300px;
   gap: 1em;
+}
+
+.auth-form,
+.form-container {
   margin: 1em auto;
 }
 
-   /* ===============================
-               HOME PAGE 
-   =============================== */
+.auth-form,
+.login-options-container {
+  width: 100%;
+}
+
+/* ===========================
+        SLIDER BUTTON
+   =========================== */
+
+.slider-container {
+  position: relative;
+  max-width: 300px;
+  margin: 0 auto;
+  border: 1px solid transparent;
+}
+
+.slider {
+  height: 60px;
+  width: 150px;
+  border-radius: 50px;
+  position: absolute;
+  top: 1em;
+  left: 0;
+  background-color: var(--secondary-clr);
+  transition: all 0.5s ease-in-out;
+}
+
+.move-slider {
+  left: auto;
+  transform: translateX(150px);
+}
+
+.slider-btn {
+  height: 60px;
+  width: 300px;
+  margin: 1em auto;
+  border-radius: 50px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 2px 2px 15px var(--secondary-clr);
+}
+
+.slider-option {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  position: relative;
+  cursor: pointer;
+  text-transform: uppercase;
+  padding: 1em 3em;
+  border-radius: 50px;
+}
+
+/* ===========================
+        AUTH FORMS
+   =========================== */
+
+.form-container {
+  position: relative;
+}
+
+.login-form-container,
+.signup-form-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  transition: all 0.5s ease-in-out;
+}
+
+.fade-in {
+  animation: fadein 800ms forwards;
+}
+
+.fade-out {
+  animation: fadeout 800ms forwards;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ===============================
+            HOME PAGE 
+=============================== */
 
 .home-container {
   max-width: 400px;
