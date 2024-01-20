@@ -2,11 +2,6 @@ import React from "react"
 import Login from "../components/authforms/Login"
 import Signup from "../components/authforms/Signup"
 
-import { 
-    authCreateAccountWithEmail,
-    authSignInWithEmail
-} from "../firebase/authentication";
-
 export default function AuthRequired() {
     const [email, setEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
@@ -86,49 +81,6 @@ export default function AuthRequired() {
                     signupFormClasses={signupFormClasses}
                 />
             </div>
-
-
-
-
-
-
-            {/* OLD HTML */}
-            {/* <div className="login-container">
-                <button 
-                    id="google-sign-in-btn"
-                    className="btn"
-                >Sign In With Google</button>
-
-                <input 
-                    className="text-input" 
-                    id="email-input" 
-                    type="email" 
-                    placeholder="Email" 
-                    value={email} 
-                    onChange={handleEmailChange} 
-                />
-
-                <input 
-                    className="text-input" 
-                    id="password-input" 
-                    type="password" 
-                    placeholder="Password" 
-                    value={password} 
-                    onChange={handlePasswordChange} 
-                />
-
-                <button 
-                    id="sign-in-btn" 
-                    className="btn primary-btn"
-                    onClick={handleSignInWithEmail}
-                >Sign In</button>
-
-                <button 
-                    id="create-acct-btn" 
-                    className="btn secondary-btn" 
-                    onClick={handleCreateAccountWithEmail}
-                >Create Account</button>
-            </div> */}
         </>
     )
 }

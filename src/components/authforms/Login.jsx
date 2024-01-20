@@ -1,4 +1,5 @@
 import React from "react"
+import PasswordReset from "../modals/PasswordReset"
 import { authSignInWithEmail } from "../../firebase/authentication"
 
 export default function Login({ 
@@ -8,7 +9,17 @@ export default function Login({
     handlePasswordChange, 
     clearInputFields,
     loginFormClasses }) {
+
+    const [isPasswordResetOpen, setIsPasswordResetOpen] = React.useState(false)
     
+    function openPasswordResetModal() {
+        setIsPasswordResetOpen(true)
+    }
+
+    function handleClosePasswordReset() {
+        setIsPasswordResetOpen(false)
+    }
+
     function handleSignInWithEmail(event) {
         event.preventDefault()
         authSignInWithEmail(email, password)
@@ -17,6 +28,7 @@ export default function Login({
 
 
     return (
+        <>
         <div className={`login-form-container ${loginFormClasses}`}>
             <form className="auth-form">
                 <input 
@@ -46,11 +58,17 @@ export default function Login({
 
             </form>
             <div className="login-options-container">
-                <button 
-                    id="google-sign-in-btn"
-                    className="btn secondary-btn"
-                >Sign In With Google</button>
+                <button
+                    className="btn ghost-btn"
+                    onClick={openPasswordResetModal}
+                >Forgot Password?</button>
             </div>
         </div>
+
+        <PasswordReset 
+            isOpen={isPasswordResetOpen}
+            closeModal={handleClosePasswordReset}
+        />
+        </>
     )
 }

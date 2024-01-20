@@ -4,7 +4,8 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signOut
+    signOut,
+    sendPasswordResetEmail
 } from "firebase/auth";
 
 const auth = getAuth(app);
@@ -45,9 +46,25 @@ function authSignOut() {
       });
 }
 
+// I'm getting the following error on localhost:
+// auth/network-request-failed: Firebase: Error (auth/network-request-failed).
+// chatgpt suggested messing with cors, I'll wait to see after deployment.
+function authResetPassword(email) {
+    sendPasswordResetEmail(auth, email)
+    .then(() => {
+        console.log("Password reset email sent to ", email)
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error(`${errorCode}: ${errorMessage}`)
+    });
+}
+
 export {
     auth,
     authCreateAccountWithEmail,
     authSignInWithEmail,
-    authSignOut
+    authSignOut,
+    authResetPassword
 }

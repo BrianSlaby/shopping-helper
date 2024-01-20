@@ -9,12 +9,8 @@ export default function Signup({
     clearInputFields,
     signupFormClasses }) {
 
-    const [displayName, setDisplayName] = React.useState("")
     const [confirmPassword, setConfirmPassword] = React.useState("")
-
-    function handleDisplayNameChange(event) {
-        setDisplayName(event.target.value)
-    }
+    const [passwordWarning, setPasswordWarning] = React.useState(false)
 
     function handleConfirmPasswordChange(event) {
         setConfirmPassword(event.target.value)
@@ -22,9 +18,21 @@ export default function Signup({
 
     function handleCreateAccountWithEmail(event) {
         event.preventDefault()
-        authCreateAccountWithEmail(email, password)
-        clearInputFields()
+
+        if (password === confirmPassword) {
+            authCreateAccountWithEmail(email, password)
+            clearInputFields()
+            setConfirmPassword("")
+        } else {
+            setPasswordWarning(true)
+        }
     }
+
+    React.useEffect(() => {
+        if (password === confirmPassword) {
+            setPasswordWarning(false)
+        }
+    }, [confirmPassword])
 
     return (
         <div className={`signup-form-container ${signupFormClasses}`}>
@@ -56,14 +64,9 @@ export default function Signup({
                     onChange={handleConfirmPasswordChange} 
                 />
 
-                <input 
-                    className="text-input" 
-                    id="display-name-input" 
-                    type="text" 
-                    placeholder="Display Name" 
-                    value={displayName} 
-                    onChange={handleDisplayNameChange} 
-                />
+                { passwordWarning && 
+                <p className="password-warning">
+                Both password fields must match!</p>}
 
                 <button 
                     id="create-acct-btn" 

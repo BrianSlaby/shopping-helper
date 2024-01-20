@@ -82,6 +82,17 @@ h2 {
   box-shadow: none;
 }
 
+.ghost-btn {
+  background-color: transparent;
+  box-shadow: none;
+  transition: box-shadow 1s;
+}
+
+.ghost-btn:hover,
+.ghost-btn:focus {
+  box-shadow: 0 0 4px var(--secondary-clr);
+}
+
 .btn-img {
   pointer-events: none;
 }
@@ -104,12 +115,19 @@ h2 {
 
 .auth-form,
 .form-container {
-  margin: 1em auto;
+  margin: 0 auto 1em;
 }
 
 .auth-form,
 .login-options-container {
   width: 100%;
+}
+
+.password-warning {
+  color: red;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
 }
 
 /* ===========================
