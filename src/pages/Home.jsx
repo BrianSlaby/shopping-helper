@@ -2,9 +2,11 @@ import React from "react"
 import { authSignOut } from "../firebase/authentication"
 import { addNewListToDB } from "../firebase/firestore"
 import UserLists from "../components/lists/UserLists"
+import UpdateProfile from "../components/modals/UpdateProfile"
 
 export default function Home({ children, user, lists }) {
     const [ newListName, setNewListName ] = React.useState("")
+    const [ isProfileModalOpen, setIsProfileModalOpen ] = React.useState(false)
 
     function handleNewListName(event) {
         setNewListName(event.target.value)
@@ -18,6 +20,14 @@ export default function Home({ children, user, lists }) {
         }
     }
 
+    function openProfileModal() {
+        setIsProfileModalOpen(true)
+    }
+
+    function handleCloseProfileModal() {
+        setIsProfileModalOpen(false)
+    }
+
     return(
     <>
         <div className="home-container">
@@ -28,7 +38,7 @@ export default function Home({ children, user, lists }) {
                 >Sign Out</button>
                 <button 
                     className="btn secondary-btn" 
-                    onClick={() => console.log("clicked")}
+                    onClick={openProfileModal}
                 >Update Profile</button>
             </div>
 
@@ -54,12 +64,11 @@ export default function Home({ children, user, lists }) {
                 />
             </div>
         </div>
+
+        <UpdateProfile 
+            isOpen={isProfileModalOpen}
+            closeModal={handleCloseProfileModal}
+        />
     </>
     )
 }
-
-    // Update profile options:
-        // change name
-        // change email
-        // change password
-        // delete account

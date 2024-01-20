@@ -106,11 +106,17 @@ h2 {
 .login-container,
 .auth-form,
 .form-container,
-.login-options-container {
+.login-options-container,
+.update-profile-container {
   display: flex;
   flex-direction: column;
   max-width: 300px;
   gap: 1em;
+}
+
+.update-profile-container {
+  min-width: 300px;
+  margin-bottom: 1em;
 }
 
 .auth-form,
