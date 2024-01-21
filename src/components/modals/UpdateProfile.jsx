@@ -10,9 +10,9 @@ export default function UpdateProfile({ isOpen, closeModal }) {
     const [ passwordFormVis, setPasswordFormVis ] = React.useState(false)
     const [ deleteAccFormVis, setDeleteAccFormVis ] = React.useState(false)
 
-    const emailBtnText = emailFormVis ? "Close Form" : "Change Email"
-    const passwordBtnText = passwordFormVis ? "Close Form" : "Change Password"
-    const accountBtnText = deleteAccFormVis ? "Close Form" : "Delete Account"
+    const emailBtnText = emailFormVis ? "Close Email Form" : "Change Email"
+    const passwordBtnText = passwordFormVis ? "Close Password Form" : "Change Password"
+    const accountBtnText = deleteAccFormVis ? "Close Account Form" : "Delete Account"
 
     function handleChangeEmailClick() {
         setEmailFormVis(prevState => !prevState)
@@ -36,7 +36,7 @@ export default function UpdateProfile({ isOpen, closeModal }) {
                     >{emailBtnText}</button>
 
                     {emailFormVis && 
-                    <ChangeEmail />}
+                    <ChangeEmail emailFormVis={emailFormVis}/>}
 
                     <button
                         className="btn primary-btn"
@@ -44,7 +44,7 @@ export default function UpdateProfile({ isOpen, closeModal }) {
                     >{passwordBtnText}</button>
 
                     {passwordFormVis && 
-                    <ChangePassword />}
+                    <ChangePassword passwordFormVis={passwordFormVis} />}
 
                     <button
                         className="btn primary-btn"
@@ -52,7 +52,7 @@ export default function UpdateProfile({ isOpen, closeModal }) {
                     >{accountBtnText}</button>
 
                     {deleteAccFormVis && 
-                    <DeleteAccount />}
+                    <DeleteAccount deleteAccFormVis={deleteAccFormVis} />}
 
                 </div>
             </Modal>

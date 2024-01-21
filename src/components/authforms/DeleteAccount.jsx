@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function DeleteAccount() {
+export default function DeleteAccount({ deleteAccFormVis }) {
 
     return (
         <>

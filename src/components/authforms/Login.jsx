@@ -33,7 +33,7 @@ export default function Login({
             <form className="auth-form">
                 <input 
                     className="text-input" 
-                    id="email-input" 
+                    id="login-email-input" 
                     type="email" 
                     placeholder="Email" 
                     value={email} 
@@ -42,7 +42,7 @@ export default function Login({
 
                 <input 
                     className="text-input" 
-                    id="password-input" 
+                    id="login-password-input" 
                     type="password" 
                     placeholder="Password" 
                     value={password} 

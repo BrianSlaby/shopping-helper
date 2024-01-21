@@ -5,7 +5,11 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
-    sendPasswordResetEmail
+    sendPasswordResetEmail,
+    updateEmail,
+    sendEmailVerification,
+    updatePassword,
+    reauthenticateWithCredential
 } from "firebase/auth";
 
 const auth = getAuth(app);
@@ -61,10 +65,44 @@ function authResetPassword(email) {
     });
 }
 
+// auth/operation-not-allowed: Firebase: Please verify the new email before changing email. (auth/operation-not-allowed).
+function authUpdateEmail(newEmail) {
+    updateEmail(auth.currentUser, newEmail).then(() => {
+        console.log("email updated to ", newEmail)
+
+        // I don't think I can nest this here
+        // email needs to be verified BEFORE updateEmail called
+        sendEmailVerification(auth.currentUser)
+            .then(() => {
+                // Email verification sent!
+                // ...
+            });
+        // Email updated!
+        // ...
+      }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error(`${errorCode}: ${errorMessage}`)
+      });
+}
+
+function authUpdatePassword(newPassword) {
+    updatePassword(auth.currentUser, newPassword).then(() => {
+        console.log("password updated")
+        // Update successful.
+      }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error(`${errorCode}: ${errorMessage}`)
+      });
+}
+
 export {
     auth,
     authCreateAccountWithEmail,
     authSignInWithEmail,
     authSignOut,
-    authResetPassword
+    authResetPassword,
+    authUpdateEmail,
+    authUpdatePassword
 }

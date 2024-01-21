@@ -39,7 +39,7 @@ export default function Signup({
             <form className="auth-form">
                 <input 
                     className="text-input" 
-                    id="email-input" 
+                    id="signup-email-input" 
                     type="email" 
                     placeholder="Email" 
                     value={email} 
@@ -48,7 +48,7 @@ export default function Signup({
 
                 <input 
                     className="text-input" 
-                    id="password-input" 
+                    id="signup-password-input" 
                     type="password" 
                     placeholder="Password" 
                     value={password} 
