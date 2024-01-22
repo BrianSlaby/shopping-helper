@@ -47,7 +47,7 @@ export default function App() {
           const data = doc.data()
           const id = doc.id
           const sortedItems = sortItems(data.items)
-          
+
           listsData.push({ ...data, id, items: sortedItems })
         });
         setLists(listsData)
@@ -65,7 +65,7 @@ export default function App() {
     <>
       <header>
         <h1>Shopping Helper</h1>
-        <img src="./public/cat.png" alt=""/>
+        <img src="/cat.png" alt=""/>
       </header>
 
       {userLoggedIn ? 
