@@ -1,5 +1,4 @@
 import { app } from "./config"
-
 import { 
     getFirestore,
     doc,
@@ -12,6 +11,7 @@ import {
     getDocs,
     deleteDoc
  } from "firebase/firestore";
+ import { sortItems } from "../utils/functions"
 
 const db = getFirestore(app);
 
@@ -71,7 +71,9 @@ async function fetchLists(user) {
     querySnapshot.forEach((doc) => {
         const data = doc.data()
         const id = doc.id
-        lists.push({ ...data, id })
+        const sortedItems = sortItems(data.items)
+
+        lists.push({ ...data, id, items: sortedItems })
     });
     return lists
 }

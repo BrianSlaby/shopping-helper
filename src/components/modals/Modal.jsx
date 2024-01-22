@@ -45,7 +45,7 @@ export default function Modal({ children, isOpen, closeModal }) {
 
             <div className="close-modal-btn-container">
                 <button
-                    className="btn modal-btn close-modal-btn"
+                    className="btn modal-btn secondary-btn"
                     onClick={handleCloseModal}
                 >Close</button>
             </div>

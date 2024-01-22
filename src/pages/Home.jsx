@@ -3,7 +3,7 @@ import { authSignOut } from "../firebase/authentication"
 import { addNewListToDB } from "../firebase/firestore"
 import UserLists from "../components/lists/UserLists"
 
-export default function Home({ children, user, lists }) {
+export default function Home({ user, lists }) {
     const [ newListName, setNewListName ] = React.useState("")
 
     function handleNewListName(event) {

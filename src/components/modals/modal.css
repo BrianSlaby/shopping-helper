@@ -13,3 +13,14 @@
     min-width: 50%;
     margin: 0.5em;
 }
+
+.warning-modal-btn-container > .delete-list-btn {
+    background-color: firebrick;
+    color: #FFF;
+    transition: background-color 1s;
+}
+
+.delete-list-btn:hover,
+.delete-list-btn:focus {
+    background-color: #830a0a;
+}

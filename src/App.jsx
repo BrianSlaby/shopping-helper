@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore"
 import { auth } from "./firebase/authentication"
 import { db, fetchLists } from "./firebase/firestore"
+import { sortItems } from "./utils/functions"
 import AuthRequired from "./pages/AuthRequired"
 import Home from "./pages/Home"
 
@@ -45,7 +46,9 @@ export default function App() {
         querySnapshot.forEach((doc) => {
           const data = doc.data()
           const id = doc.id
-          listsData.push({ ...data, id })
+          const sortedItems = sortItems(data.items)
+          
+          listsData.push({ ...data, id, items: sortedItems })
         });
         setLists(listsData)
       },

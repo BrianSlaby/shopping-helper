@@ -37,12 +37,14 @@ export default function UserLists({ lists }) {
         const listID = event.target.dataset.id
 
         if (newListItem) {
+            const date = new Date()
             const newListItemCleaned = prepStringForDbPath(newListItem)
             setNewListItem(newListItemCleaned)
 
             const newItemObj = {
                 name: newListItemCleaned,
-                isChecked: false
+                isChecked: false,
+                createdAt: date
             }
             addNewListItemToDB(newItemObj, newListItemCleaned, listID)
             setNewListItem("")
@@ -95,6 +97,7 @@ export default function UserLists({ lists }) {
                         >Add Item</button>
                     </form>
                     }
+
                     <div className="list-items-container">
                         {list.id === activeList && 
                         <UserListItems 

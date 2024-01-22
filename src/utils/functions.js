@@ -23,4 +23,9 @@ function prepStringForDbPath(string) {
     return string
 }
 
-export { prepStringForDbPath }
+function sortItems(items) {
+    const itemsArray = Object.values(items)
+    return itemsArray.sort((a, b) => a.createdAt - b.createdAt).sort((a, b) => a.isChecked - b.isChecked)
+}
+
+export { prepStringForDbPath, sortItems }

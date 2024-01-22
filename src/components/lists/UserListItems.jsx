@@ -6,7 +6,7 @@ import {
 } from "../../firebase/firestore"
 
 export default function UserListItems({ list, activeList }) {
-    const listItemsArray = Object.values(list.items)
+    const listItemsArray = list.items
 
     function handleCheckbox(event) {
         const itemName = event.target.dataset.name
@@ -42,6 +42,7 @@ export default function UserListItems({ list, activeList }) {
                             name={item.name}
                             onChange={handleCheckbox}
                             data-name={item.name}
+                            checked={item.isChecked}
                         />
                         <label
                             htmlFor={item.name}
