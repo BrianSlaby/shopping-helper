@@ -28,7 +28,7 @@ export default function UserListItems({ list, activeList }) {
 
     const xIcon = <img 
         className="btn-img" 
-        src="/public/icons/circle-xmark-regular.svg" />
+        src="/icons/circle-xmark-regular.svg" />
 
     return (
         <List listClass="user-list">

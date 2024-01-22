@@ -52,10 +52,10 @@ export default function UserLists({ lists }) {
     }
 
     const angleDownIcon = <img 
-        src="/public/icons/angle-down-solid.svg"
+        src="/icons/angle-down-solid.svg"
         className="btn-img" />
     const angleUpIcon = <img 
-        src="/public/icons/angle-up-solid.svg"
+        src="/icons/angle-up-solid.svg"
         className="btn-img"/>
 
     return (
