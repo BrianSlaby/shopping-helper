@@ -129,7 +129,8 @@ h2 {
   width: 100%;
 }
 
-.password-warning {
+.password-warning,
+.error-text {
   color: red;
   font-weight: 700;
   text-align: center;

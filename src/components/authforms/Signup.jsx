@@ -11,18 +11,24 @@ export default function Signup({
 
     const [confirmPassword, setConfirmPassword] = React.useState("")
     const [passwordWarning, setPasswordWarning] = React.useState(false)
+    const [errorMessage, setErrorMessage] = React.useState("")
 
     function handleConfirmPasswordChange(event) {
         setConfirmPassword(event.target.value)
     }
 
-    function handleCreateAccountWithEmail(event) {
+    async function handleCreateAccountWithEmail(event) {
         event.preventDefault()
 
         if (password === confirmPassword) {
-            authCreateAccountWithEmail(email, password)
-            clearInputFields()
-            setConfirmPassword("")
+            try {
+                await authCreateAccountWithEmail(email, password)
+                clearInputFields()
+                setConfirmPassword("")
+                setErrorMessage("")
+            } catch (error) {
+                setErrorMessage(error.message)
+            }
         } else {
             setPasswordWarning(true)
         }
@@ -67,6 +73,9 @@ export default function Signup({
                 { passwordWarning && 
                 <p className="password-warning">
                 Both password fields must match!</p>}
+
+                { errorMessage &&
+                <p className="error-text">{errorMessage}</p>}
 
                 <button 
                     id="create-acct-btn" 

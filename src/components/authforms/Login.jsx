@@ -11,6 +11,7 @@ export default function Login({
     loginFormClasses }) {
 
     const [isPasswordResetOpen, setIsPasswordResetOpen] = React.useState(false)
+    const [errorMessage, setErrorMessage] = React.useState("")
     
     function openPasswordResetModal() {
         setIsPasswordResetOpen(true)
@@ -20,10 +21,16 @@ export default function Login({
         setIsPasswordResetOpen(false)
     }
 
-    function handleSignInWithEmail(event) {
+    async function handleSignInWithEmail(event) {
         event.preventDefault()
-        authSignInWithEmail(email, password)
-        clearInputFields()
+
+        try {
+            await authSignInWithEmail(email, password)
+            clearInputFields()
+            setErrorMessage("")
+        } catch (error) {
+            setErrorMessage(error.message)
+        }
     }
 
 
@@ -55,8 +62,11 @@ export default function Login({
                     onClick={handleSignInWithEmail}
                 >Sign In</button>
 
-
             </form>
+
+            {errorMessage &&
+            <p className="error-text"> {errorMessage} </p>}
+
             <div className="login-options-container">
                 <button
                     className="btn ghost-btn"
