@@ -4,15 +4,23 @@ import { authResetPassword } from "../../firebase/authentication"
 
 export default function PasswordReset({ isOpen, closeModal }) {
     const [resetEmail, setResetEmail] = React.useState("")
+    const [errorMessage, setErrorMessage] = React.useState("")
 
 
     function handleResetEmailChange(event) {
         setResetEmail(event.target.value)
     }
 
-    function handleSendPasswordResetEmail() {
-        authResetPassword(resetEmail)
-        setResetEmail("")
+    async function handleSendPasswordResetEmail() {
+        try {
+            await authResetPassword(resetEmail)
+            setResetEmail("")
+            setErrorMessage("")
+        } catch (error) {
+            setErrorMessage(error.message)
+        }
+
+        
     }
 
     return (
@@ -35,6 +43,10 @@ export default function PasswordReset({ isOpen, closeModal }) {
                     onClick={handleSendPasswordResetEmail}
                 >Send Email</button>
                 </form>
+
+                {errorMessage && 
+                <p className="error-text"> {errorMessage} </p>}
+
             </div>
         </Modal>
     )

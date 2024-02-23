@@ -49,16 +49,15 @@ async function authSignOut() {
 
 // ACTUALLY maybe changing to async functions will help
 
-function authResetPassword(email) {
-    sendPasswordResetEmail(auth, email)
-    .then(() => {
-        console.log("Password reset email sent to ", email)
-    })
-    .catch((error) => {
+async function authResetPassword(email) {
+    try {
+        await sendPasswordResetEmail(auth, email)
+    } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.error(`${errorCode}: ${errorMessage}`)
-    });
+        throw error
+    }
 }
 
 export {
