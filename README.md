@@ -10,20 +10,20 @@ I wanted to expand on the [Scrimba Shopping List](https://github.com/BrianSlaby/
 
 ## Features
 
--Account creation and login through Firebase Authentication.
--Firebase Security Rules keep your data secure.
--Input allows for creation of multiple custom named lists.
--All data are stored in a Firebase Firestore Database.
--Inactive lists have contents hidden to prevent clutter.
--Active lists show contents, and input to create new list items.
--List items have checkboxes; checking an item moves it to the bottom of the list.
--List items can be deleted individually; entire lists can also be deleted.
+- Account creation and login through Firebase Authentication.
+- Firebase Security Rules keep your data secure.
+- Input allows for creation of multiple custom named lists.
+- All data are stored in a Firebase Firestore Database.
+- Inactive lists have contents hidden to prevent clutter.
+- Active lists show contents, and input to create new list items.
+- List items have checkboxes; checking an item moves it to the bottom of the list.
+- List items can be deleted individually; entire lists can also be deleted.
 
 ## Dependencies
 
--React.js
--Google Firebase
--Vite
+- React.js
+- Google Firebase
+- Vite
 
 ## Instructions For Running This Project Locally
 
