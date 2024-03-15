@@ -2,9 +2,36 @@
 
 ## Overview
 
-Site URL: [Shopping Helper](https://shopping-helper-list-organizer.netlify.app/)
-
 I wanted to expand on the [Scrimba Shopping List](https://github.com/BrianSlaby/scrimba-shopping-list) project that I made earlier in the [Scrimba Frontend Developer Career Path](https://scrimba.com/learn/frontend).  The idea is for this expanded project to use a Google Firebase cloud firestore database with authentication instead of the realtime database without authentication used in the original project.  I also wanted to include the option to create multiple lists to facilitate organization, with checkboxes (in the original project clicking on a list item simply deleted it).
+
+## Live Site URL
+
+[Shopping Helper](https://shopping-helper-list-organizer.netlify.app/)
+
+## Features
+
+-Account creation and login through Firebase Authentication.
+-Firebase Security Rules keep your data secure.
+-Input allows for creation of multiple custom named lists.
+-All data are stored in a Firebase Firestore Database.
+-Inactive lists have contents hidden to prevent clutter.
+-Active lists show contents, and input to create new list items.
+-List items have checkboxes; checking an item moves it to the bottom of the list.
+-List items can be deleted individually; entire lists can also be deleted.
+
+## Dependencies
+
+-React.js
+-Google Firebase
+-Vite
+
+## Instructions For Running This Project Locally
+
+1. Clone the project locally from this GitHub repo.
+2. Navigate to the project directory in your command line.
+3. Run `npm install` in your command line.
+4. Run `npm run dev` in your command line.
+5. Access the app in your browser using the URL provided by Vite from the previous step.
 
 ## Outstanding Issues
 
