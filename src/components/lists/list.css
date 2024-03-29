@@ -65,6 +65,7 @@
 .list-header-btn {
   padding: 1.5em;
   border: none;
+  color: var(--text-clr);
   transition: color 0.2s;
 }
 
