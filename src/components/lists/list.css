@@ -24,6 +24,10 @@
 .list-title {
   text-transform: uppercase;
   font-size: 1.125rem;
+  font-weight: 700;
+  pointer-events: none;
+  font-family: 'Lato', sans-serif;
+  padding-left: 0.5em;
 }
 
 .list-item-container {
@@ -59,14 +63,14 @@
 }
 
 .list-header-btn {
-  order: -1;
-  padding: 1em;
+  padding: 1.5em;
   border: none;
-  transition: transform 0.3s;
+  transition: color 0.2s;
 }
 
-.list-header-btn:hover {
-  transform: scale(1.25)
+.list-header-btn:hover,
+.list-header-btn:focus {
+  color: var(--faded-text-clr);
 }
 
 .list-delete-btn,

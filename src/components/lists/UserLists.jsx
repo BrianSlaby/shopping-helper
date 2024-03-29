@@ -67,12 +67,14 @@ export default function UserLists({ lists }) {
             return (
                 <div className="list-container" key={list.id}>
                     <div className="list-header-container">
-                        <h3 className="list-title">{list.name}</h3>
+                        
                         <button 
                             className="list-header-btn"
                             onClick={handleActiveList}
                             data-id={list.id}
-                        >{list.id === activeList ? angleUpIcon : angleDownIcon}</button>
+                        >{list.id === activeList ? angleUpIcon : angleDownIcon}
+                        <span className="list-title">{` ${list.name}`}</span>
+                        </button>
                         <button
                             className="list-delete-btn"
                             onClick={openDeleteListModal}
